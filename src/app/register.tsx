@@ -1,6 +1,5 @@
 import { colors } from "@/styles/colors";
 import {
-  Image,
   StyleSheet,
   View,
   TouchableOpacity,
@@ -9,11 +8,16 @@ import {
 } from "react-native";
 import Logo from "@/assets/logo.svg";
 import { CustomText } from "@/components/CustomText/indext";
-import { User, Plus, PencilLine } from "phosphor-react-native";
+import { User, PencilLine } from "phosphor-react-native";
 import { Input } from "@/components/Input";
 import { CustomButton } from "@/components/CustomButton";
+import { useState } from "react";
 
 export default function Register() {
+  const [visibilityPassword, setVisibilityPassword] = useState(false);
+  const [visibilityConfirmPassword, setVisibilityConfirmPassword] =
+    useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
@@ -50,8 +54,22 @@ export default function Register() {
             keyboardType="numeric"
             enterKeyHint="next"
           />
-          <Input placeholder="Senha" iconPassword />
-          <Input placeholder="Confirmar senha" iconPassword />
+          <Input
+            placeholder="Senha"
+            iconPassword
+            visible={visibilityPassword}
+            secureTextEntry={!visibilityPassword}
+            onClick={() => setVisibilityPassword(!visibilityPassword)}
+          />
+          <Input
+            placeholder="Confirmar senha"
+            iconPassword
+            visible={visibilityConfirmPassword}
+            secureTextEntry={!visibilityConfirmPassword}
+            onClick={() =>
+              setVisibilityConfirmPassword(!visibilityConfirmPassword)
+            }
+          />
 
           <CustomButton title="Criar" type="tertiary" />
         </View>
