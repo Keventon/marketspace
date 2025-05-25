@@ -6,6 +6,7 @@ import { CustomText } from "@/components/CustomText/indext";
 import { Input } from "@/components/Input";
 import { CustomButton } from "@/components/CustomButton";
 import { useState } from "react";
+import { router } from "expo-router";
 
 export default function Index() {
   const [visibilityPassword, setVisibilityPassword] = useState(false);
@@ -54,7 +55,11 @@ export default function Index() {
         <CustomText type="regular" fontSize={14} color={colors.gray[2]}>
           Ainda não tem acesso?
         </CustomText>
-        <CustomButton title="Criar uma conta" type="secondary" />
+        <CustomButton
+          title="Criar uma conta"
+          type="secondary"
+          onPress={() => router.navigate("/register")}
+        />
       </View>
     </View>
   );

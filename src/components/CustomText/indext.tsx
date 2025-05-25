@@ -7,12 +7,14 @@ type Props = TextProps & {
   fontSize?: number;
   color?: string;
   children: string;
+  textAlign?: "center";
 };
 
 export function CustomText({
   type,
   fontSize,
   color,
+  textAlign,
   children,
   ...rest
 }: Props) {
@@ -23,6 +25,7 @@ export function CustomText({
         fontFamily: fontFamily[type],
         fontSize: fontSize,
         color: color || colors.gray[1],
+        textAlign: textAlign && textAlign,
       }}
     >
       {children}

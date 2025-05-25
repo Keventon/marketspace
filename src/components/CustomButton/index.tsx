@@ -8,7 +8,7 @@ import { colors } from "@/styles/colors";
 
 type Props = TouchableOpacityProps & {
   title: string;
-  type: "primary" | "secondary";
+  type: "primary" | "secondary" | "tertiary";
   marginTop?: number;
 };
 
@@ -27,14 +27,24 @@ export function CustomButton({
         {
           marginTop: marginTop,
           backgroundColor:
-            type === "primary" ? colors.blue_light : colors.gray[5],
+            type === "primary"
+              ? colors.blue_light
+              : type === "secondary"
+              ? colors.gray[5]
+              : colors.gray[1],
         },
       ]}
     >
       <CustomText
         type="bold"
         fontSize={14}
-        color={type === "primary" ? colors.gray[7] : colors.gray[2]}
+        color={
+          type === "primary"
+            ? colors.gray[7]
+            : type === "secondary"
+            ? colors.gray[2]
+            : colors.gray[7]
+        }
       >
         {title}
       </CustomText>
@@ -45,7 +55,8 @@ export function CustomButton({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 48,
+    height: 52,
+    justifyContent: "center",
     borderRadius: 6,
     padding: 16,
     alignItems: "center",
