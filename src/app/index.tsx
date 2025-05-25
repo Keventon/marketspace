@@ -9,31 +9,33 @@ import { CustomButton } from "@/components/CustomButton";
 export default function Index() {
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-
-      <View style={styles.logo}>
-        <Logo />
-        <CustomText type="bold" fontSize={28} color={colors.gray[1]}>
-          marketspace
-        </CustomText>
-        <CustomText type="light" fontSize={14} color={colors.gray[1]}>
-          Seu espaço de compra e venda
-        </CustomText>
-      </View>
+      <StatusBar barStyle="dark-content" />
 
       <View style={styles.content}>
-        <CustomText type="regular" fontSize={14} color={colors.gray[2]}>
-          Acesse sua conta
-        </CustomText>
+        <View style={styles.logo}>
+          <Logo />
+          <CustomText type="bold" fontSize={28} color={colors.gray[1]}>
+            marketspace
+          </CustomText>
+          <CustomText type="light" fontSize={14} color={colors.gray[1]}>
+            Seu espaço de compra e venda
+          </CustomText>
+        </View>
 
-        <Input
-          placeholder="E-mail"
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <Input placeholder="Senha" secureTextEntry autoCapitalize="none" />
+        <View style={styles.login}>
+          <CustomText type="regular" fontSize={14} color={colors.gray[2]}>
+            Acesse sua conta
+          </CustomText>
 
-        <CustomButton title="Entrar" type="primary" />
+          <Input
+            placeholder="E-mail"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <Input placeholder="Senha" secureTextEntry autoCapitalize="none" />
+
+          <CustomButton title="Entrar" type="primary" />
+        </View>
       </View>
 
       <View style={styles.footer}>
@@ -48,7 +50,7 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.gray[6],
+    backgroundColor: colors.gray[7],
     flex: 1,
   },
   logo: {
@@ -56,20 +58,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   content: {
-    marginTop: 65,
     backgroundColor: colors.gray[6],
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
+    paddingBottom: 40,
+  },
+  login: {
+    marginTop: 65,
     padding: 40,
     alignItems: "center",
     gap: 16,
   },
   footer: {
-    flex: 1,
-    backgroundColor: colors.gray[7],
     padding: 40,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    marginTop: 24,
     alignItems: "center",
-    justifyContent: "center",
     gap: 16,
   },
 });
