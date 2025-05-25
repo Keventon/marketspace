@@ -9,9 +9,15 @@ import { colors } from "@/styles/colors";
 type Props = TouchableOpacityProps & {
   title: string;
   type: "primary" | "secondary";
+  marginTop?: number;
 };
 
-export function CustomButton({ title, type = "primary", ...rest }: Props) {
+export function CustomButton({
+  title,
+  type = "primary",
+  marginTop,
+  ...rest
+}: Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -19,6 +25,7 @@ export function CustomButton({ title, type = "primary", ...rest }: Props) {
       style={[
         styles.container,
         {
+          marginTop: marginTop,
           backgroundColor:
             type === "primary" ? colors.blue_light : colors.gray[5],
         },
@@ -38,6 +45,7 @@ export function CustomButton({ title, type = "primary", ...rest }: Props) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    height: 48,
     borderRadius: 6,
     padding: 16,
     alignItems: "center",

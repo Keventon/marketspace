@@ -5,8 +5,11 @@ import { colors } from "@/styles/colors";
 import { CustomText } from "@/components/CustomText/indext";
 import { Input } from "@/components/Input";
 import { CustomButton } from "@/components/CustomButton";
+import { useState } from "react";
 
 export default function Index() {
+  const [visibilityPassword, setVisibilityPassword] = useState(false);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -31,10 +34,19 @@ export default function Index() {
             placeholder="E-mail"
             keyboardType="email-address"
             autoCapitalize="none"
+            visible={false}
+            iconPassword={false}
           />
-          <Input placeholder="Senha" secureTextEntry autoCapitalize="none" />
+          <Input
+            placeholder="Senha"
+            secureTextEntry={!visibilityPassword}
+            autoCapitalize="none"
+            iconPassword
+            visible={visibilityPassword}
+            onClick={() => setVisibilityPassword(!visibilityPassword)}
+          />
 
-          <CustomButton title="Entrar" type="primary" />
+          <CustomButton title="Entrar" type="primary" marginTop={16} />
         </View>
       </View>
 
