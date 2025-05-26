@@ -11,4 +11,7 @@ export const colors = {
     6: "#EDECEE",
     7: "#F7F7F8",
   },
+  gradients: {
+    blueToGray: ["#364D9D", "#3E3A40"],
+  },
 };

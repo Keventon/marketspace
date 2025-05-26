@@ -15,6 +15,7 @@ export default function Layout() {
           borderTopWidth: 0,
           paddingTop: 12,
           height: 82,
+          backgroundColor: colors.gray[7],
         },
       }}
     >
