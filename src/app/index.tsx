@@ -47,7 +47,12 @@ export default function Index() {
             onClick={() => setVisibilityPassword(!visibilityPassword)}
           />
 
-          <CustomButton title="Entrar" type="primary" marginTop={16} />
+          <CustomButton
+            title="Entrar"
+            type="primary"
+            marginTop={16}
+            onPress={() => router.navigate("/(tabs)/home")}
+          />
         </View>
       </View>
 
