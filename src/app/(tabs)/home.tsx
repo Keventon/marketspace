@@ -1,9 +1,24 @@
 import { CustomButton } from "@/components/CustomButton";
 import { CustomText } from "@/components/CustomText/indext";
 import { colors } from "@/styles/colors";
-import { ArrowRight, Plus, Tag } from "phosphor-react-native";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ArrowRight,
+  MagnifyingGlass,
+  Plus,
+  Sliders,
+  Tag,
+} from "phosphor-react-native";
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { fontFamily } from "@/styles/fontFamily";
 
 export default function Home() {
   return (
@@ -41,7 +56,7 @@ export default function Home() {
           colors={["#dfeaff33", "#FFFFFF00"]}
           start={{ x: 1, y: 0 }}
           end={{ x: 1, y: 0 }}
-          style={styles.cardAds}
+          style={[styles.cardAds, { overflow: "hidden" }]}
         >
           <View style={styles.contentCardAds}>
             <View
@@ -69,6 +84,33 @@ export default function Home() {
             </TouchableOpacity>
           </View>
         </LinearGradient>
+
+        <CustomText type="regular" fontSize={14} color={colors.gray[3]}>
+          Compre produtos variados
+        </CustomText>
+
+        <View style={styles.filter}>
+          <View style={styles.inputFilter}>
+            <TextInput
+              style={styles.input}
+              placeholder="Buscar anúncio"
+              placeholderTextColor={colors.gray[4]}
+              selectionColor={colors.blue_light}
+              underlineColorAndroid="transparent"
+              cursorColor={colors.blue_light}
+            />
+          </View>
+
+          <View style={styles.contentFilter}>
+            <MagnifyingGlass size={20} color={colors.gray[2]} weight="bold" />
+            <CustomText type="regular" fontSize={20} color={colors.gray[5]}>
+              |
+            </CustomText>
+            <TouchableOpacity activeOpacity={0.5}>
+              <Sliders size={24} color={colors.gray[2]} weight="bold" />
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -80,7 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    marginTop: 68,
+    marginTop: Platform.OS === "ios" ? 68 : 54,
     marginHorizontal: 24,
     alignItems: "center",
     flexDirection: "row",
@@ -110,6 +152,7 @@ const styles = StyleSheet.create({
   },
   cardAds: {
     marginTop: 8,
+    marginBottom: 40,
     backgroundColor: colors.gray[5],
     padding: 16,
     borderRadius: 6,
@@ -120,5 +163,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 16,
     justifyContent: "space-between",
+  },
+  filter: {
+    marginTop: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    padding: 6,
+    backgroundColor: colors.gray[7],
+    paddingRight: 16,
+    borderRadius: 6,
+  },
+  inputFilter: {
+    flex: 1,
+    borderRadius: 6,
+  },
+  input: {
+    padding: 12,
+    fontFamily: fontFamily.regular,
+    fontSize: 16,
+    color: colors.gray[1],
+  },
+  contentFilter: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
 });
