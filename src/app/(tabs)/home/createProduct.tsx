@@ -8,10 +8,12 @@ import * as ImagePicker from "expo-image-picker";
 import { ImagePickerBox } from "@/components/ImagePickerBox";
 import { Input } from "@/components/Input";
 import { RadioButton } from "@/components/RadioButton";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 export default function CreateProduct() {
   const [images, setImages] = useState<string[]>([]);
   const [condition, setCondition] = useState("");
+  const [price, setPrice] = useState("");
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
   const handleAddImage = async () => {
@@ -97,6 +99,16 @@ export default function CreateProduct() {
               onPress={() => setCondition("used")}
             />
           </View>
+
+          <CustomText type="bold" fontSize={16} color={colors.gray[2]}>
+            Venda
+          </CustomText>
+
+          <CurrencyInput
+            value={price}
+            onChangeValue={setPrice}
+            placeholder="Valor do produto"
+          />
         </View>
       </ScrollView>
     </View>
@@ -128,5 +140,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
     flexDirection: "row",
     gap: 8,
+    marginBottom: 12,
   },
 });
