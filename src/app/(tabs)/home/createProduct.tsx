@@ -2,7 +2,7 @@ import { CustomText } from "@/components/CustomText/indext";
 import { Header } from "@/components/Header";
 import { colors } from "@/styles/colors";
 import { useState } from "react";
-import { StyleSheet, View, ScrollView, Alert } from "react-native";
+import { StyleSheet, View, ScrollView, Alert, Switch } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
 import { ImagePickerBox } from "@/components/ImagePickerBox";
@@ -14,6 +14,7 @@ export default function CreateProduct() {
   const [images, setImages] = useState<string[]>([]);
   const [condition, setCondition] = useState("");
   const [price, setPrice] = useState("");
+  const [acceptTrade, setAcceptTrade] = useState(false);
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
   const handleAddImage = async () => {
@@ -110,6 +111,20 @@ export default function CreateProduct() {
             placeholder="Valor do produto"
           />
         </View>
+
+        <View style={styles.switchWrapper}>
+          <CustomText type="bold" fontSize={16} color={colors.gray[2]}>
+            Aceita troca?
+          </CustomText>
+          <Switch
+            value={acceptTrade}
+            onValueChange={setAcceptTrade}
+            trackColor={{ false: colors.gray[5], true: colors.blue_light }}
+            thumbColor={acceptTrade ? colors.blue : colors.gray[7]}
+          />
+        </View>
+
+        <View style={styles.paymentMethod}></View>
       </ScrollView>
     </View>
   );
@@ -141,5 +156,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 8,
     marginBottom: 12,
+  },
+  switchWrapper: {
+    marginTop: 16,
+    gap: 8,
+    alignItems: "flex-start",
+  },
+  paymentMethod: {
+    marginTop: 32,
+    gap: 12,
   },
 });
