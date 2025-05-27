@@ -19,6 +19,8 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { fontFamily } from "@/styles/fontFamily";
+import { Product } from "@/components/Product";
+import { router } from "expo-router";
 
 export default function Home() {
   return (
@@ -42,6 +44,7 @@ export default function Home() {
               title="Criar anúncio"
               type="tertiary"
               icon={<Plus size={16} color={colors.gray[7]} />}
+              onPress={() => router.navigate("/(tabs)/home/createProduct")}
             />
           </View>
         </View>
@@ -111,6 +114,8 @@ export default function Home() {
             </TouchableOpacity>
           </View>
         </View>
+
+        {/* <Product /> */}
       </View>
     </View>
   );

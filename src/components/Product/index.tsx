@@ -1,0 +1,108 @@
+import { colors } from "@/styles/colors";
+import { fontFamily } from "@/styles/fontFamily";
+import { numberToCurrancy } from "@/utils/numbertoCurrancy";
+import React from "react";
+import {
+  ImageBackground,
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+
+export type ProductDatabase = {
+  name: string;
+  description: string;
+  is_new: boolean;
+  price: number;
+  accept_trade: boolean;
+  payment_methods: string[];
+};
+
+export function Product({
+  name,
+  price,
+  description,
+  is_new,
+  accept_trade,
+  payment_methods,
+}: ProductDatabase) {
+  return (
+    <TouchableOpacity style={styles.container} activeOpacity={0.8}>
+      <ImageBackground
+        source={require("@/assets/bicicleta.png")}
+        style={styles.imageBackground}
+        imageStyle={styles.imageStyle}
+      >
+        <View style={styles.overlay}>
+          <Image
+            source={require("@/assets/perfil.jpeg")}
+            style={styles.avatar}
+          />
+          <View style={styles.conditionTag}>
+            <Text style={styles.conditionText}>USADO</Text>
+          </View>
+        </View>
+      </ImageBackground>
+      <View style={styles.details}>
+        <Text style={styles.name}>Playstation 4 SLIM 1TB Bivolt Preto</Text>
+        <Text style={styles.price}>{numberToCurrancy(2900)}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 6,
+    width: 200,
+  },
+  imageBackground: {
+    height: 150,
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  imageStyle: {
+    resizeMode: "cover",
+    borderRadius: 6,
+  },
+  overlay: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
+  avatar: {
+    width: 30,
+    height: 30,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: colors.gray[7],
+  },
+  conditionTag: {
+    backgroundColor: colors.gray[2],
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 99,
+  },
+  conditionText: {
+    color: "#fff",
+    fontSize: 14,
+    fontFamily: fontFamily.bold,
+  },
+  details: {
+    backgroundColor: colors.gray[6],
+    padding: 10,
+  },
+  name: {
+    maxWidth: 200,
+    fontSize: 16,
+    fontFamily: fontFamily.regular,
+    color: colors.gray[2],
+  },
+  price: {
+    fontSize: 20,
+    fontFamily: fontFamily.bold,
+    color: colors.gray[1],
+  },
+});
