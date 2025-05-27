@@ -2,14 +2,16 @@ import { CustomText } from "@/components/CustomText/indext";
 import { Header } from "@/components/Header";
 import { colors } from "@/styles/colors";
 import { useState } from "react";
-import { StyleSheet, View, ScrollView, Alert, Platform } from "react-native";
+import { StyleSheet, View, ScrollView, Alert } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
 import { ImagePickerBox } from "@/components/ImagePickerBox";
 import { Input } from "@/components/Input";
+import { RadioButton } from "@/components/RadioButton";
 
 export default function CreateProduct() {
   const [images, setImages] = useState<string[]>([]);
+  const [condition, setCondition] = useState("");
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
   const handleAddImage = async () => {
@@ -48,7 +50,7 @@ export default function CreateProduct() {
     <View style={styles.container}>
       <Header title="Criar anúncio" />
 
-      <View style={styles.content}>
+      <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.contentImage}>
           <CustomText type="bold" fontSize={16} color={colors.gray[2]}>
             Imagens
@@ -82,8 +84,21 @@ export default function CreateProduct() {
             iconPassword={false}
             enterKeyHint="next"
           />
+
+          <View style={styles.radioGroup}>
+            <RadioButton
+              label="Produto novo"
+              selected={condition === "new"}
+              onPress={() => setCondition("new")}
+            />
+            <RadioButton
+              label="Produto usado"
+              selected={condition === "used"}
+              onPress={() => setCondition("used")}
+            />
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -108,5 +123,10 @@ const styles = StyleSheet.create({
   contentProduct: {
     marginTop: 32,
     gap: 12,
+  },
+  radioGroup: {
+    marginTop: 8,
+    flexDirection: "row",
+    gap: 8,
   },
 });
