@@ -12,6 +12,7 @@ import { Eye, EyeClosed } from "phosphor-react-native";
 type Props = TextInputProps & {
   placeholder: string;
   iconPassword?: boolean;
+  height?: number;
   visible?: boolean;
   onClick?: () => void;
 };
@@ -20,11 +21,12 @@ export function Input({
   placeholder,
   iconPassword,
   visible,
+  height,
   onClick,
   ...rest
 }: Props) {
   return iconPassword ? (
-    <View style={styles.container}>
+    <View style={[styles.containerPassword, { height: height || 50 }]}>
       <TextInput
         placeholder={placeholder}
         placeholderTextColor={colors.gray[4]}
@@ -51,7 +53,7 @@ export function Input({
       )}
     </View>
   ) : (
-    <View style={styles.container}>
+    <View style={[styles.container, { height: height || 50 }]}>
       <TextInput
         placeholder={placeholder}
         placeholderTextColor={colors.gray[4]}
@@ -67,6 +69,13 @@ export function Input({
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    padding: 8,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    backgroundColor: colors.gray[7],
+  },
+  containerPassword: {
     width: "100%",
     padding: 8,
     flexDirection: "row",
