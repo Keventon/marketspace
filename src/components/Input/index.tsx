@@ -34,17 +34,12 @@ export function Input({
         underlineColorAndroid="transparent"
         cursorColor={colors.blue}
         style={styles.input}
+        textAlignVertical="top"
         {...rest}
       />
       {visible ? (
         <TouchableOpacity onPress={onClick}>
-          <Eye
-            size={20}
-            color={colors.gray[3]}
-            style={{
-              padding: 10,
-            }}
-          />
+          <Eye size={20} color={colors.gray[3]} style={{ padding: 10 }} />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={onClick}>
@@ -61,6 +56,7 @@ export function Input({
         underlineColorAndroid="transparent"
         cursorColor={colors.blue}
         style={styles.input}
+        textAlignVertical="top"
         {...rest}
       />
     </View>
@@ -90,5 +86,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.gray[1],
     paddingVertical: 8,
+    textAlignVertical: "top",
   },
 });

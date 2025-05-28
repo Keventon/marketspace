@@ -12,6 +12,7 @@ import { User, PencilLine } from "phosphor-react-native";
 import { Input } from "@/components/Input";
 import { CustomButton } from "@/components/CustomButton";
 import { useState } from "react";
+import { router } from "expo-router";
 
 export default function Register() {
   const [visibilityPassword, setVisibilityPassword] = useState(false);
@@ -79,7 +80,11 @@ export default function Register() {
             Já possui uma conta?
           </CustomText>
 
-          <CustomButton title="Ir para o login" type="secondary" />
+          <CustomButton
+            title="Ir para o login"
+            type="secondary"
+            onPress={() => router.back()}
+          />
         </View>
       </ScrollView>
     </View>

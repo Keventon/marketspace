@@ -1,20 +1,26 @@
-import { CustomText } from "@/components/CustomText/indext";
-import { Header } from "@/components/Header";
-import { colors } from "@/styles/colors";
 import { useState } from "react";
-import { StyleSheet, View, ScrollView, Alert, Switch } from "react-native";
+import { Alert, ScrollView, StyleSheet, Switch, View } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
-import { ImagePickerBox } from "@/components/ImagePickerBox";
+
+import { Header } from "@/components/Header";
 import { Input } from "@/components/Input";
+import { ImagePickerBox } from "@/components/ImagePickerBox";
 import { RadioButton } from "@/components/RadioButton";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { Checkbox } from "@/components/CheckBox";
+import { CustomText } from "@/components/CustomText/indext";
+
+import { colors } from "@/styles/colors";
+import { CustomButton } from "@/components/CustomButton";
+import { router } from "expo-router";
 
 export default function CreateProduct() {
   const [images, setImages] = useState<string[]>([]);
   const [condition, setCondition] = useState("");
   const [price, setPrice] = useState("");
   const [acceptTrade, setAcceptTrade] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState<string[]>([]);
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
   const handleAddImage = async () => {
@@ -49,11 +55,22 @@ export default function CreateProduct() {
     setImages(updated);
   };
 
+  const togglePaymentMethod = (method: string) => {
+    setPaymentMethods((prev) =>
+      prev.includes(method)
+        ? prev.filter((item) => item !== method)
+        : [...prev, method]
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Header title="Criar anúncio" />
 
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.contentImage}>
           <CustomText type="bold" fontSize={16} color={colors.gray[2]}>
             Imagens
@@ -124,8 +141,51 @@ export default function CreateProduct() {
           />
         </View>
 
-        <View style={styles.paymentMethod}></View>
+        <View style={styles.paymentMethod}>
+          <CustomText type="bold" fontSize={16} color={colors.gray[2]}>
+            Meios de pagamento aceitos
+          </CustomText>
+
+          <Checkbox
+            label="Boleto"
+            checked={paymentMethods.includes("Boleto")}
+            onToggle={() => togglePaymentMethod("Boleto")}
+          />
+          <Checkbox
+            label="Pix"
+            checked={paymentMethods.includes("Pix")}
+            onToggle={() => togglePaymentMethod("Pix")}
+          />
+          <Checkbox
+            label="Dinheiro"
+            checked={paymentMethods.includes("Dinheiro")}
+            onToggle={() => togglePaymentMethod("Dinheiro")}
+          />
+          <Checkbox
+            label="Cartão de Crédito"
+            checked={paymentMethods.includes("Cartão de Crédito")}
+            onToggle={() => togglePaymentMethod("Cartão de Crédito")}
+          />
+          <Checkbox
+            label="Depósito Bancário"
+            checked={paymentMethods.includes("Depósito Bancário")}
+            onToggle={() => togglePaymentMethod("Depósito Bancário")}
+          />
+        </View>
       </ScrollView>
+
+      <View style={styles.contentButton}>
+        <View style={{ flex: 1 }}>
+          <CustomButton
+            title="Cancelar"
+            type="secondary"
+            onPress={() => router.back()}
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <CustomButton title="Avançar" type="tertiary" onPress={() => {}} />
+        </View>
+      </View>
     </View>
   );
 }
@@ -163,7 +223,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   paymentMethod: {
-    marginTop: 32,
+    marginTop: 16,
     gap: 12,
+  },
+  contentButton: {
+    backgroundColor: colors.gray[7],
+    marginTop: 16,
+    gap: 8,
+    padding: 24,
+    flexDirection: "row",
   },
 });

@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import { MaskedTextInput } from "react-native-mask-text";
 import { colors } from "@/styles/colors";
 import { fontFamily } from "@/styles/fontFamily";
@@ -35,7 +35,7 @@ export function CurrencyInput({ value, onChangeValue, placeholder }: Props) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    padding: 16,
+    padding: Platform.OS === "ios" ? 16 : 8,
     paddingHorizontal: 16,
     borderRadius: 6,
     backgroundColor: colors.gray[7],
