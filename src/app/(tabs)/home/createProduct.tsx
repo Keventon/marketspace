@@ -179,11 +179,15 @@ export default function CreateProduct() {
           <CustomButton
             title="Cancelar"
             type="secondary"
-            onPress={() => router.back()}
+            onPress={() => router.replace("/(tabs)/home")}
           />
         </View>
         <View style={{ flex: 1 }}>
-          <CustomButton title="Avançar" type="tertiary" onPress={() => {}} />
+          <CustomButton
+            title="Avançar"
+            type="tertiary"
+            onPress={() => router.navigate("/home/preview")}
+          />
         </View>
       </View>
     </View>
