@@ -65,7 +65,11 @@ export default function Preview() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={colors.blue_light}
+        translucent
+      />
       <View style={styles.header}>
         <View
           style={{
@@ -135,7 +139,7 @@ export default function Preview() {
           </View>
 
           <View style={styles.tag}>
-            <CustomText type="regular" fontSize={14} color={colors.gray[2]}>
+            <CustomText type="regular" fontSize={12} color={colors.gray[2]}>
               USADO
             </CustomText>
           </View>

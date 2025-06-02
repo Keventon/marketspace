@@ -1,6 +1,6 @@
 import { colors } from "@/styles/colors";
 import { fontFamily } from "@/styles/fontFamily";
-import { numberToCurrancy } from "@/utils/numbertoCurrancy";
+import { numberToCurrancy } from "@/utils/numberToCurrancy";
 import React from "react";
 import {
   ImageBackground,
@@ -20,14 +20,11 @@ export type ProductDatabase = {
   payment_methods: string[];
 };
 
-export function Product({
-  name,
-  price,
-  description,
-  is_new,
-  accept_trade,
-  payment_methods,
-}: ProductDatabase) {
+type Props = {
+  data: ProductDatabase;
+};
+
+export function Product({ data }: Props) {
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8}>
       <ImageBackground
