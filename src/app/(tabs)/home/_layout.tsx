@@ -6,6 +6,7 @@ export default function HomeStack() {
       <Stack.Screen name="index" />
       <Stack.Screen name="createProduct" />
       <Stack.Screen name="preview" />
+      <Stack.Screen name="[id]" />
     </Stack>
   );
 }
