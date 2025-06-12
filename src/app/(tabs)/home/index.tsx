@@ -7,9 +7,11 @@ import {
   Plus,
   Sliders,
   Tag,
+  X,
 } from "phosphor-react-native";
 import {
   Image,
+  Keyboard,
   Platform,
   StyleSheet,
   Text,
@@ -19,12 +21,25 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { fontFamily } from "@/styles/fontFamily";
-import { Product } from "@/components/Product";
 import { router } from "expo-router";
+import { useRef } from "react";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import CustomBottomSheet from "@/components/BottomSheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Home() {
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const handleBottomSheetOpen = () => {
+    bottomSheetRef.current?.expand();
+  };
+  const handleBottomSheetClose = () => {
+    bottomSheetRef.current?.close();
+    Keyboard.dismiss();
+  };
+
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.contentHeader}>
           <Image
@@ -109,7 +124,10 @@ export default function Home() {
             <CustomText type="regular" fontSize={20} color={colors.gray[5]}>
               |
             </CustomText>
-            <TouchableOpacity activeOpacity={0.5}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={handleBottomSheetOpen}
+            >
               <Sliders size={24} color={colors.gray[2]} weight="bold" />
             </TouchableOpacity>
           </View>
@@ -117,7 +135,28 @@ export default function Home() {
 
         {/* <Product /> */}
       </View>
-    </View>
+      <CustomBottomSheet ref={bottomSheetRef} snapPoints={[0.01, 530]}>
+        <BottomSheetView style={{ flex: 1 }}>
+          <View
+            style={{
+              marginHorizontal: 24,
+              marginTop: 16,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <CustomText type="bold" fontSize={20}>
+              Filtrar anúncios
+            </CustomText>
+
+            <TouchableOpacity onPress={handleBottomSheetClose}>
+              <X color={colors.gray[4]} size={24} />
+            </TouchableOpacity>
+          </View>
+        </BottomSheetView>
+      </CustomBottomSheet>
+    </GestureHandlerRootView>
   );
 }
 
@@ -125,6 +164,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.gray[6],
     flex: 1,
+  },
+  contentContainer: {
+    flex: 1,
+    backgroundColor: "grey",
   },
   header: {
     marginTop: Platform.OS === "ios" ? 68 : 54,
