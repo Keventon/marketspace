@@ -1,4 +1,3 @@
-import { CustomButton } from "@/components/CustomButton";
 import { CustomText } from "@/components/CustomText/indext";
 import { colors } from "@/styles/colors";
 import {
@@ -22,12 +21,21 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { fontFamily } from "@/styles/fontFamily";
 import { router } from "expo-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import CustomBottomSheet from "@/components/BottomSheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { GestureHandlerRootView, Switch } from "react-native-gesture-handler";
+import { Condition } from "@/components/Condition";
+import { Checkbox } from "@/components/CheckBox";
+import { CustomButton } from "@/components/CustomButton";
 
 export default function Home() {
+  const [selectedCondicion, setSelectedCondicion] = useState<
+    "NOVO" | "USADO" | null
+  >(null);
+  const [acceptTrade, setAcceptTrade] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState<string[]>([]);
+
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const handleBottomSheetOpen = () => {
@@ -36,6 +44,20 @@ export default function Home() {
   const handleBottomSheetClose = () => {
     bottomSheetRef.current?.close();
     Keyboard.dismiss();
+  };
+
+  const togglePaymentMethod = (method: string) => {
+    setPaymentMethods((prev) =>
+      prev.includes(method)
+        ? prev.filter((item) => item !== method)
+        : [...prev, method]
+    );
+  };
+
+  const handleResetFilters = () => {
+    setSelectedCondicion(null);
+    setAcceptTrade(false);
+    setPaymentMethods([]);
   };
 
   return (
@@ -135,24 +157,121 @@ export default function Home() {
 
         {/* <Product /> */}
       </View>
-      <CustomBottomSheet ref={bottomSheetRef} snapPoints={[0.01, 530]}>
-        <BottomSheetView style={{ flex: 1 }}>
+      <CustomBottomSheet ref={bottomSheetRef} snapPoints={[0.01, 587]}>
+        <BottomSheetView
+          style={{
+            flex: 1,
+            marginHorizontal: 24,
+            paddingBottom: Platform.OS === "ios" ? 140 : 110,
+          }}
+        >
           <View
             style={{
-              marginHorizontal: 24,
               marginTop: 16,
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
-            <CustomText type="bold" fontSize={20}>
+            <CustomText type="bold" fontSize={20} color={colors.gray[1]}>
               Filtrar anúncios
             </CustomText>
 
             <TouchableOpacity onPress={handleBottomSheetClose}>
               <X color={colors.gray[4]} size={24} />
             </TouchableOpacity>
+          </View>
+
+          <View style={{ marginVertical: 24 }}>
+            <CustomText type="bold" color={colors.gray[2]}>
+              Condição
+            </CustomText>
+            <View style={{ flexDirection: "row", gap: 8, marginTop: 12 }}>
+              <Condition
+                title="NOVO"
+                selected={selectedCondicion === "NOVO"}
+                onPress={() =>
+                  setSelectedCondicion((prev) =>
+                    prev === "NOVO" ? null : "NOVO"
+                  )
+                }
+              />
+              <Condition
+                title="USADO"
+                selected={selectedCondicion === "USADO"}
+                onPress={() =>
+                  setSelectedCondicion((prev) =>
+                    prev === "USADO" ? null : "USADO"
+                  )
+                }
+              />
+            </View>
+          </View>
+
+          <View>
+            <CustomText type="bold" fontSize={16} color={colors.gray[2]}>
+              Aceita troca?
+            </CustomText>
+            <Switch
+              style={{ marginTop: 12 }}
+              value={acceptTrade}
+              onValueChange={setAcceptTrade}
+              trackColor={{ false: colors.gray[5], true: colors.blue_light }}
+              thumbColor={colors.gray[7]}
+            />
+          </View>
+
+          <View style={styles.paymentMethod}>
+            <CustomText type="bold" fontSize={16} color={colors.gray[2]}>
+              Meios de pagamento aceitos
+            </CustomText>
+
+            <Checkbox
+              label="Boleto"
+              checked={paymentMethods.includes("Boleto")}
+              onToggle={() => togglePaymentMethod("Boleto")}
+            />
+            <Checkbox
+              label="Pix"
+              checked={paymentMethods.includes("Pix")}
+              onToggle={() => togglePaymentMethod("Pix")}
+            />
+            <Checkbox
+              label="Dinheiro"
+              checked={paymentMethods.includes("Dinheiro")}
+              onToggle={() => togglePaymentMethod("Dinheiro")}
+            />
+            <Checkbox
+              label="Cartão de Crédito"
+              checked={paymentMethods.includes("Cartão de Crédito")}
+              onToggle={() => togglePaymentMethod("Cartão de Crédito")}
+            />
+            <Checkbox
+              label="Depósito Bancário"
+              checked={paymentMethods.includes("Depósito Bancário")}
+              onToggle={() => togglePaymentMethod("Depósito Bancário")}
+            />
+          </View>
+
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              gap: 12,
+            }}
+          >
+            <View style={{ flex: 1 }}>
+              <CustomButton
+                title="Resetar filtros"
+                type="secondary"
+                onPress={handleResetFilters}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <CustomButton title="Aplicar filtros" type="tertiary" />
+            </View>
           </View>
         </BottomSheetView>
       </CustomBottomSheet>
@@ -236,5 +355,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
+  },
+  paymentMethod: {
+    marginTop: 16,
+    gap: 12,
   },
 });
