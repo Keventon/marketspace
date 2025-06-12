@@ -157,8 +157,14 @@ export default function Home() {
 
         {/* <Product /> */}
       </View>
-      <CustomBottomSheet ref={bottomSheetRef} snapPoints={[0.01, 530]}>
-        <BottomSheetView style={{ flex: 1, marginHorizontal: 24 }}>
+      <CustomBottomSheet ref={bottomSheetRef} snapPoints={[0.01, 587]}>
+        <BottomSheetView
+          style={{
+            flex: 1,
+            marginHorizontal: 24,
+            paddingBottom: Platform.OS === "ios" ? 140 : 110,
+          }}
+        >
           <View
             style={{
               marginTop: 16,
@@ -249,11 +255,11 @@ export default function Home() {
 
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              gap: 12,
               position: "absolute",
-              bottom: -90,
+              bottom: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              gap: 12,
             }}
           >
             <View style={{ flex: 1 }}>
