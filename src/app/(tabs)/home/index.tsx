@@ -10,6 +10,7 @@ import {
   X,
 } from "phosphor-react-native";
 import {
+  FlatList,
   Image,
   Keyboard,
   Platform,
@@ -25,9 +26,14 @@ import { router } from "expo-router";
 import { useRef, useState } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import CustomBottomSheet from "@/components/BottomSheet";
-import { GestureHandlerRootView, Switch } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  ScrollView,
+  Switch,
+} from "react-native-gesture-handler";
 import { Condition } from "@/components/Condition";
 import { Checkbox } from "@/components/CheckBox";
+import { Product } from "@/components/Product";
 
 export default function Home() {
   const [selectedCondicion, setSelectedCondicion] = useState<
@@ -37,6 +43,8 @@ export default function Home() {
   const [paymentMethods, setPaymentMethods] = useState<string[]>([]);
 
   const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const products = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // substitua pelos dados reais
 
   const handleBottomSheetOpen = () => {
     bottomSheetRef.current?.expand();
@@ -155,7 +163,19 @@ export default function Home() {
           </View>
         </View>
 
-        {/* <Product /> */}
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={products}
+          keyExtractor={(item, index) => String(index)}
+          numColumns={2}
+          columnWrapperStyle={{ gap: 16 }}
+          contentContainerStyle={{
+            gap: 16,
+            marginTop: 24,
+            paddingBottom: 350,
+          }}
+          renderItem={({ item }) => <Product />}
+        />
       </View>
       <CustomBottomSheet ref={bottomSheetRef} snapPoints={[0.01, 587]}>
         <BottomSheetView style={{ flex: 1, marginHorizontal: 24 }}>
@@ -202,12 +222,14 @@ export default function Home() {
             </View>
           </View>
 
-          <View>
+          <View style={{ alignItems: "flex-start" }}>
             <CustomText type="bold" fontSize={16} color={colors.gray[2]}>
               Aceita troca?
             </CustomText>
             <Switch
-              style={{ marginTop: 12 }}
+              style={{
+                marginTop: 12,
+              }}
               value={acceptTrade}
               onValueChange={setAcceptTrade}
               trackColor={{ false: colors.gray[5], true: colors.blue_light }}

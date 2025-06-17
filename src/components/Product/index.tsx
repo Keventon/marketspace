@@ -20,11 +20,11 @@ export type ProductDatabase = {
   payment_methods: string[];
 };
 
-type Props = {
-  data: ProductDatabase;
-};
+// type Props = {
+//   data: ProductDatabase;
+// };
 
-export function Product({ data }: Props) {
+export function Product() {
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8}>
       <ImageBackground
@@ -52,11 +52,10 @@ export function Product({ data }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 6,
-    width: 200,
+    flex: 1,
   },
   imageBackground: {
-    height: 150,
+    height: 120,
     justifyContent: "space-between",
     padding: 10,
   },
@@ -90,15 +89,16 @@ const styles = StyleSheet.create({
   details: {
     backgroundColor: colors.gray[6],
     padding: 10,
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
   },
   name: {
-    maxWidth: 200,
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: fontFamily.regular,
     color: colors.gray[2],
   },
   price: {
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: fontFamily.bold,
     color: colors.gray[1],
   },

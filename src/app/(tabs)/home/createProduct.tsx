@@ -137,7 +137,7 @@ export default function CreateProduct() {
             value={acceptTrade}
             onValueChange={setAcceptTrade}
             trackColor={{ false: colors.gray[5], true: colors.blue_light }}
-            thumbColor={acceptTrade ? colors.blue : colors.gray[7]}
+            thumbColor={colors.gray[7]}
           />
         </View>
 
