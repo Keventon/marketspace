@@ -1,6 +1,7 @@
 import { colors } from "@/styles/colors";
 import { fontFamily } from "@/styles/fontFamily";
 import { numberToCurrancy } from "@/utils/numberToCurrancy";
+import { router } from "expo-router";
 import React from "react";
 import {
   ImageBackground,
@@ -26,7 +27,11 @@ export type ProductDatabase = {
 
 export function Product() {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.8}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.8}
+      onPress={() => router.navigate("/(tabs)/home/1")}
+    >
       <ImageBackground
         source={require("@/assets/bicicleta.png")}
         style={styles.imageBackground}

@@ -162,7 +162,7 @@ export default function Preview() {
               </CustomText>
             </View>
 
-            <CustomText type="regular" fontSize={16} color={colors.gray[2]}>
+            <CustomText type="regular" fontSize={14} color={colors.gray[2]}>
               Cras congue cursus in tortor sagittis placerat nunc, tellus arcu.
               Vitae ante leo eget maecenas urna mattis cursus.
             </CustomText>
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   tag: {
     width: 62,
     padding: 8,
-    marginTop: 32,
+    marginTop: 24,
     alignItems: "center",
     height: 32,
     borderRadius: 99,

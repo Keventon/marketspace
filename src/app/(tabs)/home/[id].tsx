@@ -6,6 +6,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -19,7 +20,7 @@ import React from "react";
 import { numberToCurrancy } from "@/utils/numberToCurrancy";
 import { CustomButton } from "@/components/CustomButton";
 import { router } from "expo-router";
-import { ArrowLeft, Tag } from "phosphor-react-native";
+import { ArrowLeft, Tag, WhatsappLogo } from "phosphor-react-native";
 
 export default function ProductDetails() {
   const width = Dimensions.get("window").width;
@@ -66,27 +67,14 @@ export default function ProductDetails() {
   return (
     <View style={styles.container}>
       <StatusBar
-        barStyle="light-content"
-        backgroundColor={colors.blue_light}
+        barStyle="dark-content"
+        backgroundColor={colors.gray[6]}
         translucent
       />
-      <View style={styles.header}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-end",
-            alignItems: "center",
-            marginBottom: 16,
-          }}
-        >
-          <CustomText type="bold" fontSize={16} color={colors.gray[7]}>
-            Pré visualização do anúncio
-          </CustomText>
-          <CustomText type="regular" fontSize={14} color={colors.gray[7]}>
-            É assim que seu produto vai aparecer!
-          </CustomText>
-        </View>
-      </View>
+
+      <TouchableOpacity style={styles.header} onPress={() => router.back()}>
+        <ArrowLeft size={24} color={colors.gray[1]} />
+      </TouchableOpacity>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
@@ -162,7 +150,7 @@ export default function ProductDetails() {
               </CustomText>
             </View>
 
-            <CustomText type="regular" fontSize={16} color={colors.gray[2]}>
+            <CustomText type="regular" fontSize={14} color={colors.gray[2]}>
               Cras congue cursus in tortor sagittis placerat nunc, tellus arcu.
               Vitae ante leo eget maecenas urna mattis cursus.
             </CustomText>
@@ -202,18 +190,17 @@ export default function ProductDetails() {
 
       <View style={styles.contentButton}>
         <View style={{ flex: 1 }}>
-          <CustomButton
-            title="Voltar e editar"
-            type="secondary"
-            icon={<ArrowLeft size={16} color={colors.gray[2]} />}
-            onPress={() => router.back()}
-          />
+          <CustomText type="bold" fontSize={20} color={colors.blue_light}>
+            {numberToCurrancy(3499.99)}
+          </CustomText>
         </View>
         <View style={{ flex: 1 }}>
           <CustomButton
-            title="Publicar"
+            title="Entrar em contato"
             type="primary"
-            icon={<Tag size={16} color={colors.gray[7]} />}
+            icon={
+              <WhatsappLogo size={16} weight="fill" color={colors.gray[7]} />
+            }
             onPress={() => router.replace("/(tabs)/home")}
           />
         </View>
@@ -228,8 +215,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.gray[6],
   },
   header: {
-    height: 120,
-    backgroundColor: colors.blue_light,
+    width: 30,
+    marginTop: 48,
+    marginLeft: 24,
+    marginBottom: 16,
   },
   content: {
     marginHorizontal: 24,
@@ -250,7 +239,7 @@ const styles = StyleSheet.create({
   tag: {
     width: 62,
     padding: 8,
-    marginTop: 32,
+    marginTop: 16,
     alignItems: "center",
     height: 32,
     borderRadius: 99,
@@ -263,6 +252,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.gray[7],
     marginTop: 16,
     gap: 8,
+    alignItems: "center",
     padding: 24,
     flexDirection: "row",
   },
