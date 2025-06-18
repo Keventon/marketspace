@@ -13,11 +13,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={colors.gray[6]}
-        translucent
-      />
+      <StatusBar barStyle="dark-content" translucent />
 
       <View style={styles.content}>
         <View style={styles.logo}>

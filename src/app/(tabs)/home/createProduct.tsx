@@ -14,6 +14,7 @@ import { CustomText } from "@/components/CustomText/indext";
 import { colors } from "@/styles/colors";
 import { CustomButton } from "@/components/CustomButton";
 import { router } from "expo-router";
+import { ArrowLeft } from "phosphor-react-native";
 
 export default function CreateProduct() {
   const [images, setImages] = useState<string[]>([]);
@@ -65,7 +66,7 @@ export default function CreateProduct() {
 
   return (
     <View style={styles.container}>
-      <Header title="Criar anúncio" />
+      <Header title="Criar anúncio" orientation="left" icon={<ArrowLeft />} />
 
       <ScrollView
         contentContainerStyle={styles.content}

@@ -1,15 +1,21 @@
 import { View, Text, TouchableOpacity, Platform } from "react-native";
 import { useRouter } from "expo-router";
-import { ArrowLeft, Pencil } from "phosphor-react-native";
 import { colors } from "@/styles/colors";
 import { fontFamily } from "@/styles/fontFamily";
 
 interface HeaderProps {
   title?: string;
-  onEditPress?: () => void;
+  icon?: React.ReactNode;
+  onIconPress?: () => void;
+  orientation?: "left" | "right";
 }
 
-export function Header({ title, onEditPress }: HeaderProps) {
+export function Header({
+  title,
+  icon,
+  onIconPress,
+  orientation = "left",
+}: HeaderProps) {
   const router = useRouter();
 
   return (
@@ -24,33 +30,58 @@ export function Header({ title, onEditPress }: HeaderProps) {
         backgroundColor: colors.gray[6],
       }}
     >
-      <TouchableOpacity onPress={() => router.back()}>
-        <ArrowLeft size={24} color={colors.gray[1]} />
-      </TouchableOpacity>
-
-      {title ? (
-        <View
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: colors.gray[1],
-              fontSize: 20,
-              fontFamily: fontFamily.bold,
-            }}
-          >
-            {title}
-          </Text>
-        </View>
+      {orientation === "left" ? (
+        <>
+          <TouchableOpacity onPress={onIconPress || (() => router.back())}>
+            {icon}
+          </TouchableOpacity>
+          {title && (
+            <View
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: colors.gray[1],
+                  fontSize: 20,
+                  fontFamily: fontFamily.bold,
+                }}
+              >
+                {title}
+              </Text>
+            </View>
+          )}
+          <View style={{ width: 24 }} />
+        </>
       ) : (
-        <TouchableOpacity onPress={onEditPress}>
-          <Pencil size={24} color={colors.gray[1]} />
-        </TouchableOpacity>
+        <>
+          <View style={{ width: 24 }} />
+          {title && (
+            <View
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: colors.gray[1],
+                  fontSize: 20,
+                  fontFamily: fontFamily.bold,
+                }}
+              >
+                {title}
+              </Text>
+            </View>
+          )}
+          <TouchableOpacity onPress={onIconPress}>{icon}</TouchableOpacity>
+        </>
       )}
     </View>
   );

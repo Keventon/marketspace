@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 
-export default function Ads() {
+export default function EditProduct() {
   return (
     <View>
-      <Text>ads</Text>
+      <Text>EditProduct</Text>
     </View>
   );
 }
