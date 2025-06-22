@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
+    color: colors.gray[2],
     fontFamily: fontFamily.regular,
   },
   iconStyle: {
